@@ -21,12 +21,7 @@ import {
 import { Switch } from "@/components/ui/switch"
 import { useSubmitQuizForm } from "@/hooks/mutations/useQuizMutation"
 import { quizFormSchema, type QuizFormType } from "@/schema/quizFormSchema"
-import {
-  QuestionType,
-  type CodeQuestion,
-  type Question,
-  type QuizSubmission,
-} from "@/types"
+import { QuestionType, type QuizSubmission } from "@/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ArrowLeft, CheckCircle, Clock, Plus, Trash2 } from "lucide-react"
 import { useState } from "react"
@@ -37,9 +32,7 @@ import type z from "zod"
 
 export default function QuizCreator() {
   const navigate = useNavigate()
-  const [questions, setQuestions] = useState<Question[]>([])
   const [timeLimitEnabled, setTimeLimitEnabled] = useState(false)
-  const [questionsQuantity, setQuestionsQuantity] = useState(0)
 
   const { submit, isLoading, data } = useSubmitQuizForm()
 
@@ -72,7 +65,6 @@ export default function QuizCreator() {
       correctAnswer: "0",
       position: questionFields.length,
     })
-    setQuestionsQuantity((prev) => prev + 1)
   }
 
   const addShortAnswer = () => {
@@ -85,13 +77,11 @@ export default function QuizCreator() {
   }
 
   const addCodeQuestion = () => {
-    setQuestionsQuantity((prev) => prev + 1)
-    const q: CodeQuestion = {
+    appendFieldQuestion({
       type: QuestionType.Code,
       prompt: "",
-      position: questionsQuantity,
-    }
-    setQuestions([...questions, q])
+      position: questionFields.length,
+    })
   }
 
   const removeQuestion = (index: number) => {
@@ -108,7 +98,7 @@ export default function QuizCreator() {
       const quiz: QuizSubmission = {
         quiz: {
           title: data.title,
-          description: data.description,
+          description: data.description || "",
           timeLimitSeconds: data.timeLimitMinutes
             ? Number(data.timeLimitMinutes) * 60
             : null,

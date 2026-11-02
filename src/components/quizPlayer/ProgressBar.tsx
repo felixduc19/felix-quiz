@@ -12,7 +12,7 @@ export const ProgressBar = ({
       <div
         className="h-full rounded-full bg-primary transition-all duration-300"
         style={{
-          width: `${((currentIndex + 1) / quizQuestionQuantity) * 100}%`,
+          width: `${(currentIndex / quizQuestionQuantity) * 100}%`,
         }}
       />
     </div>

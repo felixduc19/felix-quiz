@@ -36,12 +36,16 @@ export const ResultsView = ({
       <div className="mx-auto max-w-2xl">
         <div className="animate-fade-in mb-8 text-center">
           <h1 className="mb-2 text-3xl font-bold">Results</h1>
-          <div className="my-4 text-6xl font-bold text-primary">
-            {percentage}%
-          </div>
-          <p className="text-muted-foreground">
-            {result.score} out of {questionShouldScoreQuantity} correct
-          </p>
+          {!!questionShouldScoreQuantity && (
+            <>
+              <div className="my-4 text-6xl font-bold text-primary">
+                {percentage}%
+              </div>
+              <p className="text-muted-foreground">
+                {result.score} out of {questionShouldScoreQuantity} correct
+              </p>
+            </>
+          )}
         </div>
         {(antiCheatSummary.tabSwitches > 0 || antiCheatSummary.pastes > 0) && (
           <Card className="quiz-card animate-fade-in mb-6 p-4">

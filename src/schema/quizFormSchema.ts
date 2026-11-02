@@ -20,17 +20,25 @@ export const shortAnswerQuestionSchema = z.object({
   position: z.number(),
 })
 
+export const codeQuestionSchema = z.object({
+  type: z.literal(QuestionType.Code),
+  prompt: z.string().min(1, "Question prompt is required"),
+  position: z.number(),
+})
+
 export const quizFormSchema = z.object({
   title: z
     .string()
     .min(1, "Quiz title is required")
     .max(200, "Title is too long"),
-  description: z
-    .string()
-    .min(1, "Quiz description is required")
-    .max(200, "Description is too long"),
+  description: z.string().max(200, "Description is too long"),
+
   questions: z.array(
-    z.discriminatedUnion("type", [mcqQuestionSchema, shortAnswerQuestionSchema])
+    z.discriminatedUnion("type", [
+      mcqQuestionSchema,
+      shortAnswerQuestionSchema,
+      codeQuestionSchema,
+    ])
   ),
   timeLimitMinutes: z.string().nullable(),
 })
