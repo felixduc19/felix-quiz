@@ -31,10 +31,8 @@ export const quizFormSchema = z.object({
     .string()
     .min(1, "Quiz title is required")
     .max(200, "Title is too long"),
-  description: z
-    .string()
-    .min(1, "Quiz description is required")
-    .max(200, "Description is too long"),
+  description: z.string().max(200, "Description is too long"),
+
   questions: z.array(
     z.discriminatedUnion("type", [
       mcqQuestionSchema,

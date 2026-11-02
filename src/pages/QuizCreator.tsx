@@ -98,7 +98,7 @@ export default function QuizCreator() {
       const quiz: QuizSubmission = {
         quiz: {
           title: data.title,
-          description: data.description,
+          description: data.description || "",
           timeLimitSeconds: data.timeLimitMinutes
             ? Number(data.timeLimitMinutes) * 60
             : null,
