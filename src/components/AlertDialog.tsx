@@ -15,6 +15,7 @@ interface AlertDialogProps extends PropsWithChildren {
   onClick: () => void
   title: string
   description: string
+  alertDialogTriggerClassName?: string
 }
 
 export const CustomAlertDialog = ({
@@ -22,10 +23,13 @@ export const CustomAlertDialog = ({
   description,
   onClick,
   children,
+  alertDialogTriggerClassName,
 }: AlertDialogProps) => {
   return (
     <AlertDialog>
-      <AlertDialogTrigger>{children}</AlertDialogTrigger>
+      <AlertDialogTrigger asChild className={alertDialogTriggerClassName}>
+        {children}
+      </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
