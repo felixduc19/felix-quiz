@@ -11,6 +11,7 @@ const queryClient = new QueryClient()
 export function App() {
   return (
     <QueryClientProvider client={queryClient}>
+      <p>Testing</p>
       <Toaster position="top-right" />
       <BrowserRouter>
         <Routes>
