@@ -23,7 +23,7 @@ jobs:
           cache: yarn
 
       - run: corepack enable
-      - run: yarn install --frozen-lockfile
+      - run: yarn install --immutable
       - run: yarn build
 
       - name: Upload Pages artifact
